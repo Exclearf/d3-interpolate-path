@@ -14,24 +14,25 @@
     "canvas path"
   ],
   "license": "BSD-3-Clause",
-  "main": "build/d3-interpolate-path.js",
-  "module": "build/d3-interpolate-path.mjs",
+  "exports": {
+    ".": "./build/d3-interpolate-path.js"
+  },
   "homepage": "https://pbeshai.github.io/d3-interpolate-path",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pbeshai/d3-interpolate-path.git"
+    "url": "https://github.com/Exclearf/d3-interpolate-path.git"
   },
   "files": [
     "build/"
   ],
   "scripts": {
-    "build": "rm -rf build && mkdir build && rollup --config rollup.config.js",
+    "build": "./node_modules/.bin/esbuild index.js --bundle --platform=neutral --outfile=build/d3-interpolate-path.js",
+    "build-legacy": "rm -rf build && mkdir build && rollup --config rollup.config.js",
     "watch": "rollup --config rollup.config.js --watch",
     "lint": "eslint --ext .js src --fix",
     "pretest": "npm run build",
     "test": "tape 'test/**/*-test.js'",
-    "prepublish": "npm run lint && npm run test && uglifyjs build/d3-interpolate-path.js -c -m -o build/d3-interpolate-path.min.js",
-    "postpublish": "zip -j build/d3-interpolate-path.zip -- LICENSE README.md build/d3-interpolate-path.js build/d3-interpolate-path.min.js"
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
@@ -39,6 +40,7 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-runtime": "^6.26.0",
     "braces": ">=3.0.2",
+    "esbuild": "0.25.12",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "minimist": ">=1.2.5",
@@ -47,6 +49,5 @@
     "rollup-plugin-node-resolve": "^5.0.1",
     "tape": "^5.2.2",
     "uglify-js": "^3.13.6"
-  },
-  "dependencies": {}
+  }
 }
